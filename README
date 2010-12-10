@@ -1,0 +1,20 @@
+A small script that organizes your (backed up) tv-series.
+
+Intended usage:
+
+./move-series -d <my_series_directory> -s <my_incoming_directory>
+
+The script right now first scans the destination directory and stores all
+directory names. It then tries to match that name with the names of the
+series in your incoming name. It also optionally tries to figure out what
+season it belongs to. Then it moves the series from the incoming directory
+to the permanent place.
+
+This is still a very early versions with a lot on the todo list:
+
+* create new directories for series that doesn't match anything
+* add the subtitle code (base it on periscope?)
+* improve the regular expression for seasons matching, currently only
+  handling series that are named <series>.sXXeYY
+* create a config file so that you don't have to configure it from the cli
+* make it run from transmission-bt

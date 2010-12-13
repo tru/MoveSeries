@@ -45,7 +45,7 @@ class SeriesMover:
             
             # check if the file is actually ending with a movie extension
             if not self.moviefile_re.match(p):
-                log.debug("%s didn't match the mofilefile regexp, skipping")
+                log.debug("%s didn't match the mofilefile regexp, skipping" % p)
                 continue
             
             # checking the start of the filename with our directories. this could be

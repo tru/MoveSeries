@@ -29,7 +29,7 @@ class SeriesMover:
         log.debug("scanning destination dir")
         for p in os.listdir(self.dest):
             path = os.path.join(self.dest, p)
-            if (os.path.isdir(path)):
+            if os.path.isdir(path):
                 log.debug("adding %s as a destination", p)
                 self._dest_directories.append(p)
                 
@@ -56,6 +56,10 @@ class SeriesMover:
                 if p.lower().startswith(dest.lower()):
                     log.debug("%s seems to match directory %s", p, dest)
                     dest_dir = os.path.join(self.dest, dest)
+                    
+            if not dest_dir:
+                log.debug("%s didn't match any directory, skipping", p)
+                continue
             
             # matching season
             season = -1
@@ -81,7 +85,7 @@ class SeriesMover:
                 if not (os.path.isdir(final_dir)):
                     log.debug("creating directory %s" % final_dir)
                     try:
-                        os.makedir(final_dir)
+                        os.makedirs(final_dir)
                     except:
                         log.error("couldn't create directory %s, will exit now" % final_dir)
                         sys.exit(-1)

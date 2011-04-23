@@ -27,12 +27,15 @@ class SeriesMover:
 
     def _scan_dest(self):
         log.debug("scanning destination dir")
+        tmp = []
         for p in os.listdir(self.dest):
             path = os.path.join(self.dest, p)
             if os.path.isdir(path):
                 log.debug("adding %s as a destination", p)
-                self._dest_directories.append(p)
-                
+                tmp.append(p)
+        self._dest_directories = sorted(tmp, lambda a,b: cmp(len(a), len(b)))
+        self._dest_directories.reverse()
+                        
     def _scan_source(self):
         log.debug("scanning source for matching files")
         for p in os.listdir(self.source):
@@ -56,6 +59,7 @@ class SeriesMover:
                 if p.lower().startswith(dest.lower()):
                     log.debug("%s seems to match directory %s", p, dest)
                     dest_dir = os.path.join(self.dest, dest)
+                    break
                     
             if not dest_dir:
                 log.debug("%s didn't match any directory, skipping", p)
